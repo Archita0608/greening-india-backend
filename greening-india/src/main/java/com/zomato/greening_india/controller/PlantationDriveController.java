@@ -1,28 +1,30 @@
 package com.zomato.greening_india.controller;
 
 import com.zomato.greening_india.model.PlantationDrive;
-import com.zomato.greening_india.service.PlantationDriveService;
+import com.zomato.greening_india.repository.PlantationDriveRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/drives")
+@RequestMapping("/plantation-drives")
 public class PlantationDriveController {
 
-    private final PlantationDriveService driveService;
+    private final PlantationDriveRepository repository;
 
-    public PlantationDriveController(PlantationDriveService driveService) {
-        this.driveService = driveService;
+    public PlantationDriveController(PlantationDriveRepository repository) {
+        this.repository = repository;
     }
 
+    // CREATE drive
     @PostMapping
-    public PlantationDrive createDrive(@RequestBody PlantationDrive drive) {
-        return driveService.createDrive(drive);
+    public PlantationDrive create(@RequestBody PlantationDrive drive) {
+        return repository.save(drive);
     }
 
+    // GET all drives
     @GetMapping
-    public List<PlantationDrive> getAllDrives() {
-        return driveService.getAllDrives();
+    public List<PlantationDrive> getAll() {
+        return repository.findAll();
     }
 }

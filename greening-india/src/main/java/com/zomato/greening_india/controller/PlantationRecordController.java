@@ -8,27 +8,27 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/records")
+@RequestMapping("/plantation-records")
 public class PlantationRecordController {
 
-    private final PlantationRecordService recordService;
+    private final PlantationRecordService service;
 
-    public PlantationRecordController(PlantationRecordService recordService) {
-        this.recordService = recordService;
+    public PlantationRecordController(PlantationRecordService service) {
+        this.service = service;
     }
 
     @PostMapping
-    public PlantationRecord createRecord(@RequestBody PlantationRecord record) {
-        return recordService.saveRecord(record);
+    public PlantationRecord create(@RequestBody PlantationRecord record) {
+        return service.saveRecord(record);
     }
 
     @GetMapping
-    public List<PlantationRecord> getAllRecords() {
-        return recordService.getAllRecords();
+    public List<PlantationRecord> getAll() {
+        return service.getAllRecords();
     }
 
     @GetMapping("/leaderboard")
-    public List<LeaderboardDTO> getLeaderboard() {
-        return recordService.getLeaderboard();
+    public List<LeaderboardDTO> leaderboard() {
+        return service.getLeaderboard();
     }
 }

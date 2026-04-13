@@ -1,0 +1,93 @@
+{
+  "info": {
+    "name": "Greening India APIs",
+    "_postman_id": "greening-india-001",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "User APIs",
+      "item": [
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/users",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["users"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Archita\",\n  \"email\": \"archita@test.com\",\n  \"city\": \"Indore\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Plantation Drive APIs",
+      "item": [
+        {
+          "name": "Create Drive",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": "http://localhost:8080/plantation-drives",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"location\": \"Indore Park\",\n  \"date\": \"2026-04-13\",\n  \"targetTrees\": 100\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Drives",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8080/plantation-drives"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Plantation Record APIs",
+      "item": [
+        {
+          "name": "Create Record",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": "http://localhost:8080/plantation-records",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"treesPlanted\": 10,\n  \"user\": { \"id\": 1 },\n  \"drive\": { \"id\": 1 }\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Records",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8080/plantation-records"
+          }
+        },
+        {
+          "name": "Leaderboard",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8080/plantation-records/leaderboard"
+          }
+        }
+      ]
+    }
+  ]
+}

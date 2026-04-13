@@ -1,8 +1,12 @@
 package com.zomato.greening_india.service;
 
 import com.zomato.greening_india.dto.LeaderboardDTO;
+import com.zomato.greening_india.model.PlantationDrive;
 import com.zomato.greening_india.model.PlantationRecord;
+import com.zomato.greening_india.model.User;
+import com.zomato.greening_india.repository.PlantationDriveRepository;
 import com.zomato.greening_india.repository.PlantationRecordRepository;
+import com.zomato.greening_india.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,12 +15,28 @@ import java.util.List;
 public class PlantationRecordService {
 
     private final PlantationRecordRepository recordRepository;
+    private final UserRepository userRepository;
+    private final PlantationDriveRepository driveRepository;
 
-    public PlantationRecordService(PlantationRecordRepository recordRepository) {
+    public PlantationRecordService(PlantationRecordRepository recordRepository,
+                                   UserRepository userRepository,
+                                   PlantationDriveRepository driveRepository) {
         this.recordRepository = recordRepository;
+        this.userRepository = userRepository;
+        this.driveRepository = driveRepository;
     }
 
     public PlantationRecord saveRecord(PlantationRecord record) {
+
+        User user = userRepository.findById(record.getUser().getId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        PlantationDrive drive = driveRepository.findById(record.getDrive().getId())
+                .orElseThrow(() -> new RuntimeException("Drive not found"));
+
+        record.setUser(user);
+        record.setDrive(drive);
+
         return recordRepository.save(record);
     }
 
@@ -29,8 +49,8 @@ public class PlantationRecordService {
 
         return results.stream()
                 .map(r -> new LeaderboardDTO(
-                        (Long) r[0],
-                        (Long) r[1]
+                        ((Number) r[0]).longValue(),
+                        ((Number) r[1]).longValue()
                 ))
                 .toList();
     }
