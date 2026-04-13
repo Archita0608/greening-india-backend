@@ -15,7 +15,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   app:
-    build: .
+    build: ./backend
     container_name: greening-app
     depends_on:
       - db
